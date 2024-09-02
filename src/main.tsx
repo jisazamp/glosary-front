@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { App, ConceptDetails } from "./screens";
 import { MainLayout } from "./layout";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -8,7 +9,9 @@ import "@fontsource/roboto/300.css";
 import "@fontsource/roboto/400.css";
 import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
+import "dayjs/locale/es";
 
+dayjs.locale("es");
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([

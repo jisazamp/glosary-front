@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useGetConcept } from "../../hooks";
+import rehypeRaw from "rehype-raw";
 
 export const ConceptDetails = () => {
   const { id } = useParams();
@@ -64,7 +65,7 @@ export const ConceptDetails = () => {
       <Typography>
         <Typography component="span">Fecha de creación: </Typography>
         {dayjs(conceptData?.attributes.createdAt).format(
-          "dddd DD MMM YYYY HH:mm"
+          "dddd D MMM YYYY HH:mm"
         )}
       </Typography>
 
@@ -73,7 +74,7 @@ export const ConceptDetails = () => {
           Fecha de última actualización:{" "}
         </Typography>
         {dayjs(conceptData?.attributes.updatedAt).format(
-          "dddd DD MMM YYYY HH:mm"
+          "dddd D MMM YYYY HH:mm"
         )}
       </Typography>
 
@@ -84,7 +85,9 @@ export const ConceptDetails = () => {
           "& img": { maxWidth: "100%" },
         }}
       >
-        <Markdown>{conceptData?.attributes.content}</Markdown>
+        <Markdown rehypePlugins={[rehypeRaw]}>
+          {conceptData?.attributes.content}
+        </Markdown>
       </Box>
     </Container>
   );
