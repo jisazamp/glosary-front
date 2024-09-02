@@ -11,23 +11,27 @@ export const ConceptDetails = () => {
 
   return (
     <Container sx={{ mt: 3 }}>
-      <Button component={Link} to="/inicio" sx={{ mb: 3 }}>
+      <Button component={Link} to="/" sx={{ mb: 3 }}>
         Volver
       </Button>
+
       <Typography component="h1" fontSize="25px">
         {conceptData?.attributes.name}
       </Typography>
+
       <Typography>
         <Typography component="span">Creado por: </Typography>
         {conceptData?.attributes.authors.data[0]?.attributes.firstName ??
           "Desconocido"}
       </Typography>
+
       <Typography>
         <Typography component="span">Fecha de creación: </Typography>
         {dayjs(conceptData?.attributes.createdAt).format(
           "dddd DD MMM YYYY HH:mm"
         )}
       </Typography>
+
       <Typography>
         <Typography component="span">
           Fecha de última actualización:{" "}
@@ -39,7 +43,10 @@ export const ConceptDetails = () => {
 
       <Box
         component="div"
-        sx={{ maxWidth: "900px", "& img": { maxWidth: "100%" } }}
+        sx={{
+          maxWidth: "900px",
+          "& img": { maxWidth: "100%" },
+        }}
       >
         <Markdown>{conceptData?.attributes.content}</Markdown>
       </Box>

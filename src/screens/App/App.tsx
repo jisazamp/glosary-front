@@ -1,5 +1,12 @@
-import { Container, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  InputAdornment,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Link } from "react-router-dom";
+import { Search } from "@mui/icons-material";
 import { useGetCategories, Category, useGetConcepts } from "../../hooks";
 import { useState } from "react";
 
@@ -8,8 +15,13 @@ export const App = () => {
     null
   );
 
+  const [search, setSearch] = useState<string>("");
+
   const { data: categories } = useGetCategories();
-  const { data: concepts } = useGetConcepts({ category: selectedCategory });
+  const { data: concepts } = useGetConcepts({
+    category: selectedCategory,
+    search,
+  });
 
   const onCategoryChange = (category: Category | null) => {
     setSelectedCategory(category);
@@ -17,6 +29,31 @@ export const App = () => {
 
   return (
     <Container>
+      <Box
+        alignItems="center"
+        display="flex"
+        justifyContent="flex-end"
+        sx={{ mt: 2 }}
+      >
+        <TextField
+          fullWidth
+          placeholder="Buscar"
+          size="small"
+          sx={{ maxWidth: "300px" }}
+          slotProps={{
+            input: {
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Search />
+                </InputAdornment>
+              ),
+            },
+          }}
+          value={search}
+          onChange={(e) => setSearch(e.currentTarget.value)}
+        />
+      </Box>
+
       <ul>
         {categories?.data.data.map((category) => (
           <Typography

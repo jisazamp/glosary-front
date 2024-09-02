@@ -11,7 +11,7 @@ import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
 import { useState, MouseEvent } from "react";
 
-const pages = [{ label: "Inicio", to: "inicio" }];
+const pages = [{ label: "Inicio", to: "/" }];
 
 export const Navbar = () => {
   const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
@@ -31,7 +31,7 @@ export const Navbar = () => {
           <Typography
             component={Link}
             noWrap
-            to="inicio"
+            to="/"
             variant="h6"
             sx={{
               mr: 2,
@@ -109,7 +109,7 @@ export const Navbar = () => {
           <Typography
             component={Link}
             noWrap
-            to="inicio"
+            to="/"
             variant="h5"
             sx={{
               mr: 2,
