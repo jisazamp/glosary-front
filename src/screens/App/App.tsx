@@ -1,6 +1,7 @@
 import {
   Box,
   Container,
+  CircularProgress,
   InputAdornment,
   TextField,
   Typography,
@@ -17,11 +18,26 @@ export const App = () => {
 
   const [search, setSearch] = useState<string>("");
 
-  const { data: categories } = useGetCategories();
-  const { data: concepts } = useGetConcepts({
+  const { data: categories, isLoading: isLoadingCategories } =
+    useGetCategories();
+  const { data: concepts, isLoading: isLoadingConcepts } = useGetConcepts({
     category: selectedCategory,
     search,
   });
+
+  const isLoading = isLoadingConcepts || isLoadingCategories;
+  const loadingComponent = (
+    <Container
+      sx={{
+        alignItems: "center",
+        display: "flex",
+        height: "200px",
+        justifyContent: "center",
+      }}
+    >
+      <CircularProgress />
+    </Container>
+  );
 
   const onCategoryChange = (category: Category | null) => {
     setSelectedCategory(category);
@@ -80,18 +96,22 @@ export const App = () => {
         {selectedCategory ? selectedCategory.attributes.name : "Todas"}
       </Typography>
 
-      <ul>
-        {concepts?.data.data.map((concept) => (
-          <Typography
-            component={Link}
-            key={concept.id}
-            to={`/terminos/${concept.id}`}
-            sx={{ textDecoration: "none", color: "#000" }}
-          >
-            <Typography>{concept.attributes.name}</Typography>
-          </Typography>
-        ))}
-      </ul>
+      {isLoading ? (
+        loadingComponent
+      ) : (
+        <ul>
+          {concepts?.data.data.map((concept) => (
+            <Typography
+              component={Link}
+              key={concept.id}
+              to={`/terminos/${concept.id}`}
+              sx={{ textDecoration: "none", color: "#000" }}
+            >
+              <Typography>{concept.attributes.name}</Typography>
+            </Typography>
+          ))}
+        </ul>
+      )}
     </Container>
   );
 };

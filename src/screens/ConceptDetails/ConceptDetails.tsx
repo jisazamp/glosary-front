@@ -1,13 +1,49 @@
 import Markdown from "react-markdown";
 import dayjs from "dayjs";
-import { Box, Container, Button, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Button,
+  Typography,
+  CircularProgress,
+} from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useGetConcept } from "../../hooks";
 
 export const ConceptDetails = () => {
   const { id } = useParams();
-  const { data: concept } = useGetConcept({ conceptId: id + "" });
+  const { data: concept, isLoading } = useGetConcept({ conceptId: id + "" });
   const conceptData = concept?.data.data[0];
+
+  if (isLoading)
+    return (
+      <Container
+        sx={{
+          alignItems: "center",
+          display: "flex",
+          height: "200px",
+          justifyContent: "center",
+          mt: 3,
+        }}
+      >
+        <CircularProgress />
+      </Container>
+    );
+
+  if (!concept?.data.data.length)
+    return (
+      <Container
+        sx={{
+          mt: 3,
+        }}
+      >
+        <Button component={Link} to="/" sx={{ mb: 3 }}>
+          Volver
+        </Button>
+
+        <Typography sx={{ textAlign: "center" }}>No encontrado</Typography>
+      </Container>
+    );
 
   return (
     <Container sx={{ mt: 3 }}>
