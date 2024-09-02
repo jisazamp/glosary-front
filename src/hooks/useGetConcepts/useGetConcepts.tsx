@@ -1,20 +1,22 @@
 import type { ApiResponse } from "../../types";
 import type { Category } from "../useGetCategories/useGetCategories";
+import { Author } from "../useGetAuthors/useGetAuthors";
 import { instance } from "../../api";
 import { useQuery } from "@tanstack/react-query";
 
 export type Concept = {
-  id: number;
-  attributes: {
-    createdAt: string;
-    name: string;
-    publishedAt: string;
-    updatedAt: string;
+  createdAt: string;
+  name: string;
+  content: string;
+  publishedAt: string;
+  updatedAt: string;
+  authors: {
+    data: { id: number; attributes: Author }[];
   };
 };
 
 export interface UseGetConceptsResponse extends ApiResponse {
-  data: Concept[];
+  data: { id: number; attributes: Concept }[];
 }
 
 interface Props {

@@ -8,7 +8,9 @@ interface Props {
 
 export const useGetConcept = ({ conceptId }: Props) => {
   const fetchConcept = () =>
-    instance<UseGetConceptsResponse>(`concepts?filters[id][$eq]=${conceptId}`);
+    instance<UseGetConceptsResponse>(
+      `concepts?filters[id][$eq]=${conceptId}&populate=*`
+    );
 
   const query = useQuery({
     queryKey: ["concept", conceptId],
