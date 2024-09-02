@@ -29,7 +29,7 @@ export const useGetConcepts = ({ category, search }: Props) => {
   const categoryFilter = category
     ? `filters[categories][id][$eq]=${category.id}`
     : "";
-  const searchFilter = search ? `filters[name][$contains]=${search}` : "";
+  const searchFilter = search ? `filters[name][$containsi]=${search}` : "";
   const [searchFilterDebounced] = useDebounce([searchFilter], 500);
   const filters = [categoryFilter, searchFilter].filter((f) => f).join("&");
 
