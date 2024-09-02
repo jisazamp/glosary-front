@@ -92,7 +92,7 @@ export const App = () => {
       </ul>
 
       <Typography component="p">
-        Selected category:{" "}
+        Categoría seleccionada:{" "}
         {selectedCategory ? selectedCategory.attributes.name : "Todas"}
       </Typography>
 

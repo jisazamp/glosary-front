@@ -1,5 +1,3 @@
-import Markdown from "react-markdown";
-import dayjs from "dayjs";
 import {
   Box,
   Container,
@@ -7,14 +5,16 @@ import {
   Typography,
   CircularProgress,
 } from "@mui/material";
+import Markdown from "react-markdown";
+import dayjs from "dayjs";
+import rehypeRaw from "rehype-raw";
 import { Link, useParams } from "react-router-dom";
 import { useGetConcept } from "../../hooks";
-import rehypeRaw from "rehype-raw";
 
 export const ConceptDetails = () => {
   const { id } = useParams();
   const { data: concept, isLoading } = useGetConcept({ conceptId: id + "" });
-  const conceptData = concept?.data.data[0];
+  const conceptData = concept?.data?.data?.[0];
 
   if (isLoading)
     return (
@@ -58,7 +58,7 @@ export const ConceptDetails = () => {
 
       <Typography>
         <Typography component="span">Creado por: </Typography>
-        {conceptData?.attributes.authors.data[0]?.attributes.firstName ??
+        {conceptData?.attributes.authors?.data[0].attributes.firstName ??
           "Desconocido"}
       </Typography>
 
