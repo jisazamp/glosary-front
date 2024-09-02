@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { Container, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
 import { useGetCategories, Category, useGetConcepts } from "../../hooks";
+import { useState } from "react";
 
 export const App = () => {
   const [selectedCategory, setSelectedCategory] = useState<Category | null>(
@@ -14,35 +16,45 @@ export const App = () => {
   };
 
   return (
-    <div>
+    <Container>
       <ul>
         {categories?.data.data.map((category) => (
-          <li
+          <Typography
+            component="li"
             key={category.id}
             style={{ cursor: "pointer" }}
             onClick={() => onCategoryChange(category)}
           >
             {category.attributes.name}
-          </li>
+          </Typography>
         ))}
-        <li
+
+        <Typography
+          component="li"
           style={{ cursor: "pointer" }}
           onClick={() => onCategoryChange(null)}
         >
           Todas
-        </li>
+        </Typography>
       </ul>
 
-      <p>
+      <Typography component="p">
         Selected category:{" "}
         {selectedCategory ? selectedCategory.attributes.name : "Todas"}
-      </p>
+      </Typography>
 
       <ul>
         {concepts?.data.data.map((concept) => (
-          <li key={concept.id}>{concept.attributes.name}</li>
+          <Typography
+            component={Link}
+            key={concept.id}
+            to={`/terminos/${concept.id}`}
+            sx={{ textDecoration: "none", color: "#000" }}
+          >
+            <Typography>{concept.attributes.name}</Typography>
+          </Typography>
         ))}
       </ul>
-    </div>
+    </Container>
   );
 };

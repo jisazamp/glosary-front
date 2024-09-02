@@ -18,16 +18,16 @@ export interface UseGetConceptsResponse extends ApiResponse {
 }
 
 interface Props {
-  category: Category | null;
+  category?: Category | null;
 }
 
 export const useGetConcepts = ({ category }: Props) => {
-  const filters = category
+  const categoryFilter = category
     ? `?filters[categories][id][$eq]=${category.id}`
     : "";
 
   const fetchConcepts = () =>
-    instance.get<UseGetConceptsResponse>("concepts" + filters);
+    instance.get<UseGetConceptsResponse>("concepts" + categoryFilter);
 
   const query = useQuery({
     queryKey: ["concepts", category],
