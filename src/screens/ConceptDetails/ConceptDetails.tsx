@@ -58,7 +58,7 @@ export const ConceptDetails = () => {
 
       <Typography>
         <Typography component="span">Creado por: </Typography>
-        {conceptData?.attributes.authors?.data[0].attributes.firstName ??
+        {conceptData?.attributes.authors?.data?.[0]?.attributes?.firstName ??
           "Desconocido"}
       </Typography>
 
